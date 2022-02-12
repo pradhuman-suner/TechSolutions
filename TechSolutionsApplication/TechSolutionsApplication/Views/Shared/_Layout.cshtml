@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Tech Solutions</title>
+    <link rel="icon">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" integrity="sha384-ejwKkLla8gPP8t2u0eQyL0Q/4ItcnyveF505U0NIobD/SMsNyXrLti6CWaD0L52l" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/Content/CustomCss.css" />
+</head>
+<body>
+   
+    <!-- Header BAR -->
+    <header class="p-3 mb-3 border-bottom">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                    <img src="~/Content/images/logo_trans.png" height="50" class="d-inline-block align-top" alt="">
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 text-center mx-auto">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (!User.IsInRole("Admin"))
+                        {
+                            <li><a href="/Home/Index" class="nav-link px-2 link-dark">Home</a></li>
+                            <li><a href="/Home/About" class="nav-link px-2 link-dark">About</a></li>
+                            <li><a href="/Home/Contact" class="nav-link px-2 link-dark">Contact</a></li>
+
+                        }
+                    }
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Admin"))
+                        {
+                            
+                            <li><a href="/Home/Index" class="nav-link px-2 link-dark">Home</a></li>
+                            <li><a href="/Categories/CategoriesList" class="nav-link px-2 link-dark">Categories</a></li>
+                        }
+                    }
+                    
+                </ul>
+
+
+                <div class="dropdown text-end">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- BODY -->
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Tech Solutions</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Content/assets/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("scripts", required: false)
+
+    
+</body>
+</html>

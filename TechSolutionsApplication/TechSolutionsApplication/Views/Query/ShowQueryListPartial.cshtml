@@ -1,0 +1,71 @@
+﻿@model IEnumerable<TechSolutionsApplication.Models.Query>
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+{
+    <form class="mb-3 mb-lg-0 me-lg-3">
+        <div class="row">
+            <button class="btn btn-outline-primary d-inline col-2 mx-2" type="submit">Search</button>
+            <input type="text" id="searchStr" name="searchStr" class="form-control d-inline col" placeholder="Search..." aria-label="Search">
+        </div>
+    </form>
+}
+
+
+
+
+<div class="pagetitle mt-4 mb-4">
+    <h1>Questions</h1>
+    <nav class="row w-100 m-0">
+        <ol class="breadcrumb col w-100">
+            <li class="breadcrumb-item text-secondary">Questions</li>
+            <li class="breadcrumb-item text-secondary">@ViewBag.Categories</li>
+        </ol>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (User.IsInRole("User"))
+            {
+                <div class="col-3">
+                    <button class="btn btn-primary d-inline w-100" onclick="location.href='@Url.Action("AddQueryPartial", "Query")';return false;">Ask Question</button>
+                </div>
+            }
+        }
+    </nav>
+
+
+</div>
+
+
+
+<div class="container-fluid">
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-1 text-center m-2">
+                <a href="#" class="d-block link-dark text-decoration-none">
+                    <img src="~/Uploads/userdefault.png" alt="mdo" width="50" class="rounded-circle">
+                </a>
+            </div>
+            <!-- Default Card -->
+            <div class="card my-2 col">
+                <div class="card-body ">
+                    <h6 class="text-secondary text-wrap w-100">@item.UserName</h6>
+                    <h5 class="card-title w-100">
+                        @Html.ActionLink(item.Title.ToString(), "GetQusAndAns", new { id = item.Id }, new { @class = "text-decoration-none w-100" })
+                    </h5>
+                    <div class="row">
+                        <div class="col small text-secondary mt-2">
+                            <i class="bi bi-clock"></i> <small>@Html.DisplayFor(modelItem => item.QDatetime)</small>
+                        </div>
+                        <div class="col text-end">
+                            @*<span><i class="bi bi-heart"></i> @Html.DisplayFor(modelItem => item.LikeCount) </span>*@
+                            <span title="Total no of Answers"><i class="bi bi-check-circle"></i> @Html.DisplayFor(modelItem => item.AnsCount) </span>
+                            <span title="Total no of Comments"><i class="bi bi-chat-right-text"></i> @Html.DisplayFor(modelItem => item.CommentCount) </span>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Default Card -->
+        </div>
+    }
+
+</div>

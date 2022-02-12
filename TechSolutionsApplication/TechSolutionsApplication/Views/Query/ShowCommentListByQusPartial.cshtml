@@ -1,0 +1,28 @@
+﻿@model IEnumerable<TechSolutionsApplication.Models.Comment>
+
+<h1 class="mt-5 border-top py-3">Comments</h1>
+
+@foreach (var item in Model) {
+        <div class="row">
+
+            <div class="card my-2 col">
+                <div class="card-body w-100">
+                    <div class="d-flex justify-content-between">
+                        <p class="text-secondary small"><i class="bi bi-clock"></i> @Html.DisplayFor(modelItem => item.DateTiime)</p>
+                        <h5 class="text-wrap">
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </h5>
+                    </div>
+
+                    <pre class="text-wrap card-body">@Html.DisplayFor(modelItem => item.Comment1)</pre>
+                </div>
+            </div>
+
+            <div class="col-1 text-center m-2">
+                <a href="#" class="d-block link-dark text-decoration-none">
+                    <img src="~/Uploads/userdefault.png" alt="mdo" width="100%" class="rounded-circle">
+                </a>
+            </div>
+        </div>
+}
+

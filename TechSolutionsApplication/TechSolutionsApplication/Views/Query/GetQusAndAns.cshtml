@@ -1,0 +1,72 @@
+﻿@model TechSolutionsApplication.Models.Query
+
+<div>
+    <button class="btn btn-primary d-inline bi bi-arrow-left" onclick="location.href='@Url.Action("Index", "Home")';return false;"> Go Back</button>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="card col-9">
+            <div class="card-header bg-transparent">
+                <h4 class="card-title">@Html.DisplayFor(model => model.Title)</h4>
+            </div>
+            <div class="card-body">
+                <pre class="card-text text-wrap">@Html.DisplayFor(model => model.Ques)</pre>
+            </div>
+            <div class="card-footer bg-transparent d-flex justify-content-between">
+                @*<button class="btn btn-primary d-inline" onclick="location.href='@Url.Action("AnswersCreate", "Query",new { id = Model.Id },null)';return false;">Write an Answer</button>*@
+                 <small><i class="bi bi-clock"></i> @Html.DisplayFor(model => model.QDatetime)</small>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card h4 p-3 pl-4">
+                <div class="text-center ">
+                    <a href="#" class="d-block link-dark text-decoration-none text-center w-100">
+                        <img src="~/Uploads/userdefault.png" alt="mdo" class="rounded-circle w-75">
+                    </a>
+                    <p class="text-primary">@Html.DisplayFor(model => model.UserName)</p>
+                </div>
+                <div class="text-center">
+                    @*<span><i class="bi bi-heart"></i> @Html.DisplayFor(model => model.LikeCount)</span>*@
+                    <span><i class="bi bi-check-circle"></i> @Html.DisplayFor(model => model.AnsCount)</span>
+                    <span><i class="bi bi-chat-right-text"></i> @Html.DisplayFor(model => model.CommentCount) </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    if (User.IsInRole("Expert"))
+    {
+        <!-- Partial View To Add Answers -->
+        <div>
+            @{ Html.RenderAction("AnswersCreate", "Query"); }
+        </div>
+    }
+}
+
+
+<!-- Partial View of Answers list-->
+<div>
+    @{ Html.RenderAction("ShowAnswerListByQusPartial", "Query", new { QId = Model.Id }); }
+</div>
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    if (User.IsInRole("User"))
+    {
+        <!-- Partial View To Add Answers -->
+        <div>
+            @{ Html.RenderAction("CommentCreate", "Query"); }
+        </div>
+     }
+}
+
+<!-- Partial View of Comment list-->
+<div>
+    @{ Html.RenderAction("ShowCommentListByQusPartial", "Query", new { QId = Model.Id }); }
+</div>

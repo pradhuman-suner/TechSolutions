@@ -1,0 +1,52 @@
+﻿@using Microsoft.AspNet.Identity
+
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    @*<ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>*@
+        <div class="flex-shrink-0 dropdown">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="~/Uploads/userdefault.png" alt="mdo" width="32" height="32" class="rounded-circle">
+            </a>
+            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                <li><h5 class="dropdown-item" href="#">@User.Identity.GetUserName()</h5></li>
+                <li>@if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Expert"))
+                        {
+                        <h6 class="dropdown-item">Professional</h6>
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                        <h6 class="dropdown-item">User</h6>
+                    }
+                    else if (User.IsInRole("Admin"))
+                    {
+                        <h6 class="dropdown-item">Administrator</h6>
+                    }
+                }</li>
+                <li><hr class="dropdown-divider"></li>
+                <li>@Html.ActionLink("My Profile", "Index", "Manage", null, new { @class = "dropdown-item" })</li>
+                @*<li><a class="dropdown-item" href="#">My Questions</a></li>*@
+                <li><hr class="dropdown-divider"></li>
+                <li><a  class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Sign out</a></li>
+            </ul>
+        </div>
+    }
+}
+else
+{
+    <ul class="nav d-flex">
+        <li>@Html.ActionLink("Sign Up", "Register", "Account", null, new { @class = "btn btn-primary d-inline mx-1" })</li>
+        <li>@Html.ActionLink("Sign In", "Login", "Account", null,  new { @class = "btn btn-primary d-inline mx-1" })</li>
+    </ul>
+}

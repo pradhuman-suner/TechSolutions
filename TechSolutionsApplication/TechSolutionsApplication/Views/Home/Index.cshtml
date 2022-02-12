@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+
+@if (User.IsInRole("Admin"))
+{
+    <div> @{ Html.RenderAction("QueryListForAdmin", "Query"); }</div>
+
+        }
+        else
+        {
+    <div class="row">
+
+        <div class="col-3">
+            @{ Html.RenderAction("CategoriesListPartial", "Categories"); }
+        </div>
+
+        <div class="col">
+
+            @{ Html.RenderAction("ShowQueryListPartial", "Query"); }
+        </div>
+
+    </div>
+                }

@@ -1,0 +1,67 @@
+﻿@model TechSolutionsApplication.Models.IndexViewModel
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <div class="card border-primary text-primary text-center">
+                <img src="~/Uploads/userdefault.png" class="border-primary card-img-top rounded-circle w-75 mx-auto my-2" alt="profile image">
+                <div class="card-body">
+                    <h5 class="card-title">@User.Identity.Name</h5>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Expert"))
+                        {
+                            <h3>Professional</h3>
+                        }
+                        else if (User.IsInRole("User"))
+                        {
+                            <h3>User</h3>
+                        }
+                        else if (User.IsInRole("Admin"))
+                        {
+                            <h3>Administrator</h3>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="card border-primary text-primary text-center mt-2">
+                <div class="card-body">
+                    @if (Model.HasPassword)
+                    {
+                        <i class="bi bi-key"></i> @Html.ActionLink("Change Password", "ChangePassword", null, new { @class = "text-decoration-none w-100 " })
+                    }
+                    else
+                    {
+                        <i class="bi bi-key"></i> @Html.ActionLink("Create", "SetPassword", null, new { @class = "text-decoration-none w-100 " })
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h2>About</h2>
+                    <div class="mt-3">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                Email :
+                            </dt>
+
+                            <dd>
+                                @User.Identity.Name
+                            </dd>
+                            @*@{ Html.RenderAction("Details", "UserDetails");}*@
+                        </dl>
+                    </div>
+
+                </div>
+            </div>
+            <div>
+                @*@{ Html.RenderAction("Create", "UserDetails");}*@
+            </div>
+
+        </div>
+    </div>
+</div>

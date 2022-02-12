@@ -1,0 +1,25 @@
+﻿@model IEnumerable<TechSolutionsApplication.Models.Answer>
+
+<h1 class="mt-5 border-top py-3">Answers</h1>
+
+
+@foreach (var item in Model) {
+        
+            <div class="card my-2 bg-light">
+                <div class="card-body w-100">
+                    <div class="m-2 d-flex">
+                                <a href="#" class="link-dark text-decoration-none">
+                                    <img src="~/Uploads/userdefault.png" alt="mdo" width="50px" class="rounded-circle">
+                                </a>
+                            <div class="mx-3"><h4 class="text-wrap">@Html.DisplayFor(modelItem => item.UserName)</h4>
+                                <p class="text-secondary small text-end"><i class="bi bi-clock"></i> @Html.DisplayFor(modelItem => item.DateTiime)</p>
+                            </div>
+
+                    </div>
+                    
+                    <pre class="text-wrap card-body">@Html.DisplayFor(modelItem => item.Ans)</pre>
+                </div>
+                
+            </div>
+            
+}

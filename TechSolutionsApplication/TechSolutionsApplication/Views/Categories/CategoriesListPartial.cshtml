@@ -1,0 +1,28 @@
+﻿@model IEnumerable<TechSolutionsApplication.Models.Category>
+
+<h4>Categories</h4>
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+{
+<div class="list-group">
+    <form>
+        <button class="list-group-item list-group-item-action" type="submit">All</button>
+        <input type="text" id="searchStr" name="searchStr" value="" class="form-control d-none" placeholder="Search..." aria-label="Search">
+    </form>
+    @foreach (var item in Model)
+    {
+        @*<button onclick="applyfilter(this)" type="button" class="list-group-item list-group-item-action" value="@Html.DisplayFor(modelItem => item.Id)">@Html.DisplayFor(modelItem => item.Name)</button>*@
+       
+      
+            <form>
+                    <button class="list-group-item list-group-item-action" type="submit">@Html.DisplayFor(modelItem => item.Name)</button>
+                    <input type="text" id="searchStr" name="searchStr" value="Catid,@Html.DisplayFor(modelItem => item.Id),@Html.DisplayFor(modelItem => item.Name)" class="form-control d-none" placeholder="Search..." aria-label="Search">
+            </form>
+       
+    }
+</div>
+}
+
+
+
+

@@ -1,0 +1,56 @@
+﻿@model TechSolutionsApplication.Models.Query
+
+
+<div>
+    <button class="btn btn-primary d-inline bi bi-arrow-left" onclick="location.href='@Url.Action("Index", "Home")';return false;"> Go Back</button>
+</div>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal mt-5">
+        <h4>Ask Question</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group mt-3">
+            @Html.LabelFor(model => model.Title,"Title", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mt-3">
+            @Html.LabelFor(model => model.Ques, "Description", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Ques, new { @class = "form-control", @rows = 5 })
+                @Html.ValidationMessageFor(model => model.Ques, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        
+
+        <div class="form-group mt-3">
+            @Html.LabelFor(model => model.CatId, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model =>model.CatId, new SelectList(ViewBag.CategoriesList,"Id","Name"), new { @class = "form-control "})
+                @Html.ValidationMessageFor(model => model.CatId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group mt-3">
+            <div class="col-md-offset-2 col-md-10">
+                <button class="btn btn-primary d-inline w-100" type="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
