@@ -1,2 +1,2 @@
-# TechSolutions
+# Tech Solutions
 A Website
